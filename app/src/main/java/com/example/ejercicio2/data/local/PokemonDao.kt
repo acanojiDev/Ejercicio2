@@ -13,7 +13,7 @@ interface PokemonDao {
     suspend fun insert(pokemon: PokemonEntity)
 
     @Delete
-    suspend fun delete(pokemon:PokemonEntity): Int
+    suspend fun delete(pokemon: PokemonEntity): Int
 
     @Query("SELECT * FROM pokemon")
     suspend fun getAll(): List<PokemonEntity>
@@ -21,6 +21,6 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon")
     fun observeAll(): Flow<List<PokemonEntity>>
 
-    @Query
-    suspend fun readPokemonById(id: Long):PokemonEntity?
+    @Query("SELECT * FROM pokemon WHERE id = :id")
+    suspend fun readPokemonById(id: Long): PokemonEntity?
 }

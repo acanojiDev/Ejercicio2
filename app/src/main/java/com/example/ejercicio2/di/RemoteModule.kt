@@ -10,11 +10,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class RemoteModule {
+
     @Provides
     @Singleton
     fun providePokemonApi(): PokemonApi {
@@ -26,7 +28,13 @@ class RemoteModule {
     }
 
     @Provides
+    @Singleton
+    @ApplicationScope
     fun provideCoroutineScope(): CoroutineScope {
         return CoroutineScope(SupervisorJob() + Dispatchers.Default)
     }
 }
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class ApplicationScope
